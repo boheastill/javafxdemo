@@ -23,7 +23,7 @@ public class Tjlog {
             , String startText, String startText2, String endText, String containRow) {
         String logText = null;
         try {
-            logText = readDealFile(path, inputCharset, partFirstText, startText, startText2, endText,containRow);
+            logText = readDealFile(path, inputCharset, partFirstText, startText, startText2, endText, containRow);
         } catch (IOException e) {
             e.printStackTrace();
         }

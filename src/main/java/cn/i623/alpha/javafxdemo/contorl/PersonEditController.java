@@ -10,7 +10,7 @@ import javafx.stage.Stage;
 
 /**
  * Dialog to edit details of a person.
- * 
+ *
  * @author Marco Jakob
  */
 public class PersonEditController {
@@ -43,7 +43,7 @@ public class PersonEditController {
 
     /**
      * Sets the stage of this dialog.
-     * 
+     *
      * @param dialogStage
      */
     public void setDialogStage(Stage dialogStage) {
@@ -52,7 +52,7 @@ public class PersonEditController {
 
     /**
      * Sets the person to be edited in the dialog.
-     * 
+     *
      * @param person
      */
     public void setPerson(Person person) {
@@ -69,7 +69,7 @@ public class PersonEditController {
 
     /**
      * Returns true if the user clicked OK, false otherwise.
-     * 
+     *
      * @return
      */
     public boolean isOkClicked() {
@@ -104,35 +104,35 @@ public class PersonEditController {
 
     /**
      * Validates the user input in the text fields.
-     * 
+     *
      * @return true if the input is valid
      */
     private boolean isInputValid() {
         String errorMessage = "";
 
         if (firstNameField.getText() == null || firstNameField.getText().length() == 0) {
-            errorMessage += "No valid first name!\n"; 
+            errorMessage += "No valid first name!\n";
         }
         if (lastNameField.getText() == null || lastNameField.getText().length() == 0) {
-            errorMessage += "No valid last name!\n"; 
+            errorMessage += "No valid last name!\n";
         }
         if (streetField.getText() == null || streetField.getText().length() == 0) {
-            errorMessage += "No valid street!\n"; 
+            errorMessage += "No valid street!\n";
         }
 
         if (postalCodeField.getText() == null || postalCodeField.getText().length() == 0) {
-            errorMessage += "No valid postal code!\n"; 
+            errorMessage += "No valid postal code!\n";
         } else {
             // try to parse the postal code into an int.
             try {
                 Integer.parseInt(postalCodeField.getText());
             } catch (NumberFormatException e) {
-                errorMessage += "No valid postal code (must be an integer)!\n"; 
+                errorMessage += "No valid postal code (must be an integer)!\n";
             }
         }
 
         if (cityField.getText() == null || cityField.getText().length() == 0) {
-            errorMessage += "No valid city!\n"; 
+            errorMessage += "No valid city!\n";
         }
 
         if (birthdayField.getText() == null || birthdayField.getText().length() == 0) {
@@ -150,7 +150,7 @@ public class PersonEditController {
             Alert alert = new Alert(Alert.AlertType.INFORMATION); // 创建一个消息对话框
             alert.setHeaderText("信息。 7"); // 设置对话框的头部文本
             // 设置对话框的内容文本
-            alert.setContentText("异常："+errorMessage);
+            alert.setContentText("异常：" + errorMessage);
             alert.show(); // 显示对话框
             return false;
         }

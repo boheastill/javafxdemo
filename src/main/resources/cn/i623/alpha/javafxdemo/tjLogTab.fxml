@@ -2,8 +2,8 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.AnchorPane?>
-<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="471.0" prefWidth="533.0" xmlns="http://javafx.com/javafx/17"
-            xmlns:fx="http://javafx.com/fxml/1" fx:controller="cn.i623.alpha.javafxdemo.contorl.TabController">
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" minHeight="0.0" minWidth="0.0" prefHeight="471.0" prefWidth="533.0"
+            xmlns="http://javafx.com/javafx/17" fx:controller="cn.i623.alpha.javafxdemo.contorl.TabController">
     <children>
         <Label fx:id="welcomeText" layoutX="254.0" layoutY="6.0" text="标签tj。。"/>
 

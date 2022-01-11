@@ -5,7 +5,10 @@ import cn.i623.alpha.javafxdemo.domain.Person;
 import cn.i623.alpha.javafxdemo.util.DateUtil;
 import javafx.beans.property.StringProperty;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 
 public class PersonController {
     @FXML
@@ -63,9 +66,10 @@ public class PersonController {
         personTable.getSelectionModel().selectedItemProperty().addListener(
                 (observable, oldValue, newValue) -> showPersonDetails(newValue));
     }
+
     /**
      * Is called by the main application to give a reference back to itself.
-     * 
+     *
      * @param rootApp
      */
     public void setMainApp(RootApp rootApp) {
@@ -74,6 +78,7 @@ public class PersonController {
         // Add observable list data to the table
 //        personTable.setItems(rootApp.getPersonData());
     }
+
     private void showPersonDetails(Person person) {
         if (person != null) {
             // Fill the labels with info from the person object.
@@ -139,7 +144,7 @@ public class PersonController {
         if (selectedPerson != null) {
 //            boolean okClicked = rootApp.showPersonEditDialog(selectedPerson);
 //            if (okClicked) {
-                showPersonDetails(selectedPerson);
+            showPersonDetails(selectedPerson);
 //            }
 
         } else {

@@ -49,7 +49,7 @@ public class MybatisTest {
 
     private void close() {
         //GoodsServiceImpl为我想要获取的service层中的类
-        XsElementMapper taskMapper = (XsElementMapper) SpringUtil.getBean(XsElementMapper.class);
+        XsElementMapper taskMapper = SpringUtil.getBean(XsElementMapper.class);
         System.out.println(taskMapper.selectByPrimaryKey(10221, 0));
 //		System.out.println(taskMapper.selectByPrimaryKey("010f4dfe-cd4e-4ca4-8492-5e088c4872e1"));
     }

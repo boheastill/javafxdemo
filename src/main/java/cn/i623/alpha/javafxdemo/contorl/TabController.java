@@ -1,14 +1,13 @@
 package cn.i623.alpha.javafxdemo.contorl;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Paint;
-import javafx.scene.shape.StrokeType;
-import javafx.scene.text.FontSmoothingType;
-import javafx.scene.text.Text;
 
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
@@ -46,6 +45,8 @@ public class TabController {
     //按钮
     @FXML
     private Button exeButton;
+    @FXML
+    private VBox timebox;          //填写时间的板块
 
     //    方法
     @FXML
@@ -59,13 +60,12 @@ public class TabController {
         Charset inputCharset = StandardCharsets.UTF_8;
         String containRow = "get request...submit";
 
-        String mpath= "".equals(pathText.getText())?path:pathText.getText();
-        String moutPath="".equals( outPathText.getText())?outPath:outPathText.getText();
+        String mpath = "".equals(pathText.getText()) ? path : pathText.getText();
+        String moutPath = "".equals(outPathText.getText()) ? outPath : outPathText.getText();
 
         //按钮
         exeM(mpath, moutPath, starWith, inputCharset, startText, startText2, endText, containText.getText() != null ? containText.getText() : containRow);
         outText.setText("完成");
-
 
 
     }
@@ -75,9 +75,6 @@ public class TabController {
 //        String text = containText.getText();
 //        Print.p("t",text);
     }
-    @FXML
-    private VBox timebox;          //填写时间的板块
-
 
     @FXML
     void addtimecustom(MouseEvent event) {

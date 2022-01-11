@@ -29,7 +29,7 @@ public class RSATest {
 //            System.out.println("Public Key:" + Base64.encodeBase64String(rsaPublicKey.getEncoded()));
 //            System.out.println("Private Key:" + Base64.encodeBase64String(rsaPrivateKey.getEncoded()));
 //        atransfer(rsaPublicKey, rsaPrivateKey);
-            transfer(rsaPublicKey, rsaPrivateKey);
+        transfer(rsaPublicKey, rsaPrivateKey);
 
     }
 

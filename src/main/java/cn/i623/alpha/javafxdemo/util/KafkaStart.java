@@ -10,7 +10,7 @@ public class KafkaStart {
 
     public static void start(String path) throws IOException {
         //取消关机
-        Runtime.getRuntime().exec("cd "+path);
+        Runtime.getRuntime().exec("cd " + path);
         Runtime.getRuntime().exec("zookeeper-server-start.bat ..\\..\\config\\zookeeper.properties");
         Runtime.getRuntime().exec("kafka-server-start.bat ..\\..\\config\\server.properties");
         Print.p("启动成功.");

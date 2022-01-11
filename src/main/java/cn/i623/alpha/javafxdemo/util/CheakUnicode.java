@@ -1,13 +1,14 @@
 package cn.i623.alpha.javafxdemo.util;
 
 import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.util.List;
 
 public class CheakUnicode {
     public static void main(String[] args) throws UnsupportedEncodingException {
 
-        String y ="Ｋ", x= "K";
+        String y = "Ｋ", x = "K";
         getUnicode(x);
     }
 
@@ -15,7 +16,7 @@ public class CheakUnicode {
     public static String translate(String str) {
         String tempStr = "";
         try {
-            tempStr = new String(str.getBytes("UTF-8"), "unicode");
+            tempStr = new String(str.getBytes(StandardCharsets.UTF_8), "unicode");
             tempStr = tempStr.trim();
         } catch (Exception e) {
             System.err.println(e.getMessage());
@@ -36,7 +37,7 @@ public class CheakUnicode {
         System.err.println("第三种-----toCharArray");
         char[] chars = s.toCharArray();
         for (char aChar : chars) {
-            System.err.println("char字符:"+aChar);
+            System.err.println("char字符:" + aChar);
             String x = Integer.toHexString(aChar);
             if (x.length() <= 2) {
                 x = "\\u00" + x;
@@ -54,11 +55,11 @@ public class CheakUnicode {
 
         List<Object> list = new ArrayList<>();
         for (byte aByte : bytes) {
-            System.err.println("byte字节:"+aByte);
+            System.err.println("byte字节:" + aByte);
             String x = Integer.toHexString(aByte);
             if ((-2 != aByte) && (-1 != aByte)) {
                 list.add(x);
-             }
+            }
         }
         for (int i = 0; i < list.size(); i = i + 2) {
             StringBuilder stringBuilder = new StringBuilder();

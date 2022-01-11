@@ -1,24 +1,19 @@
 package cn.i623.alpha.javafxdemo.util;
 
 
-import lombok.extern.slf4j.Slf4j;
-import org.apache.poi.hssf.usermodel.*;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.usermodel.DateUtil;
 import org.apache.poi.ss.usermodel.*;
 import org.apache.poi.xssf.usermodel.XSSFCell;
 import org.apache.poi.xssf.usermodel.XSSFRow;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 
-import javax.servlet.http.HttpServletResponse;
-import java.io.*;
-import java.net.URLEncoder;
-import java.nio.charset.StandardCharsets;
-import java.text.DecimalFormat;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.text.NumberFormat;
-import java.text.SimpleDateFormat;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -31,26 +26,27 @@ public class ExcelUtils {
     //	}
     private static NumberFormat numberFormat = NumberFormat.getNumberInstance();
 
-    static{
+    static {
         numberFormat.setGroupingUsed(false);
     }
 
     /**
      * 读取给定行列格子的值
+     *
      * @param wb       读取excel的文档对象
      * @param column   列序号
      * @param rowIndex 行序号
      * @return 读取到的值
      */
-    public static String getColumn(Workbook wb,int column,int rowIndex){
+    public static String getColumn(Workbook wb, int column, int rowIndex) {
         //Workbook wb = readExcel(filePath); //文件
         Sheet sheet = wb.getSheetAt(0); //sheet
         Row row = sheet.getRow(rowIndex);
         //        log.info(">>>>>>>>rowIndex:{}",rowIndex);
         if (row != null && row.getCell(column) != null) {
-            String cellData = (String)getCellFormatValue(row.getCell(column));
+            String cellData = (String) getCellFormatValue(row.getCell(column));
             if (!StringUtils.isEmpty(cellData)) {
-                return cellData.replaceAll(" ","");
+                return cellData.replaceAll(" ", "");
             }
         } else {
             //            if (row==null){
@@ -64,18 +60,19 @@ public class ExcelUtils {
 
     /**
      * 读取给定值，给定列上行的序号
+     *
      * @param wb     读取excel的文档对象
      * @param column 列序号
      * @param text   文本
      * @return 读取到的序号
      */
-    public static int getRowIndex(Workbook wb,int column,String text){
+    public static int getRowIndex(Workbook wb, int column, String text) {
         //Workbook wb = readExcel(filePath); //文件
         if (wb != null) {
             Sheet sheet = wb.getSheetAt(0); //sheet
             for (Row row : sheet) {
                 Cell cell = row.getCell(column - 1);
-                String cellData = (String)getCellFormatValue(cell);
+                String cellData = (String) getCellFormatValue(cell);
 //                Log.info("###### >>>>>>>>> cell data is " + cellData + ", need text is " + text + ", " + text.equals(cellData));
                 if (!StringUtils.isEmpty(cellData)) {
                     if (cellData.equals(text)) {
@@ -93,12 +90,12 @@ public class ExcelUtils {
      * @param text     文本
      * @return 读取到的列序号
      */
-    public static int getColumnIndex(Workbook wb,int rowIndex,String text){
+    public static int getColumnIndex(Workbook wb, int rowIndex, String text) {
         //Workbook wb = readExcel(filePath); //文件
         Sheet sheet = wb.getSheetAt(0); //sheet
         Row row = sheet.getRow(rowIndex - 1);
         for (Cell cell : row) {
-            String cellData = (String)getCellFormatValue(cell);
+            String cellData = (String) getCellFormatValue(cell);
             if (!StringUtils.isEmpty(cellData) && cellData.equals(text)) {
                 return cell.getColumnIndex();
             }
@@ -106,7 +103,7 @@ public class ExcelUtils {
         return -1;
     }
 
-    private static String getColumnSet(Workbook wb,int column,int startRow,int endRow){
+    private static String getColumnSet(Workbook wb, int column, int startRow, int endRow) {
         //Workbook wb = readExcel(filePath); //文件
         Sheet sheet = wb.getSheetAt(0); //sheet
         Row row = null;
@@ -116,8 +113,8 @@ public class ExcelUtils {
             System.out.println(i);
             row = sheet.getRow(i);
             if (row != null) {
-                cellData = (String)getCellFormatValue(row.getCell(column - 1));
-                result = cellData.replaceAll(" ","");
+                cellData = (String) getCellFormatValue(row.getCell(column - 1));
+                result = cellData.replaceAll(" ", "");
                 break;
             }
             //System.out.println(cellData);
@@ -131,20 +128,20 @@ public class ExcelUtils {
      * @param startRow 指定从第几行开始读取数据
      * @return 返回读取列数据的set
      */
-    public static String getColumnSet(Workbook wb,int column,int startRow){
+    public static String getColumnSet(Workbook wb, int column, int startRow) {
         //Workbook wb = readExcel(filePath); //文件
         Sheet sheet = wb.getSheetAt(0); //sheet
         int rownum = sheet.getPhysicalNumberOfRows(); //行数
         System.out.println("sumrows " + rownum);
 
-        return getColumnSet(wb,column,startRow,rownum - 1);
+        return getColumnSet(wb, column, startRow, rownum - 1);
     }
 
     /**
      * @param filePath 需要读取的文件路径
      * @return 返回的excel对象
      */
-    public static Workbook readExcel(String filePath){
+    public static Workbook readExcel(String filePath) {
         Workbook wb = null;
         if (filePath == null) {
             return null;
@@ -166,19 +163,20 @@ public class ExcelUtils {
         }
         return wb;
     }
-/*
-*
-* Stage0 部分
-* Hex0：起点，Binary 不超过 1KB，用来从带注释的 hex dump 生成 binary。
-* Hex1、Hex2：Hex0 + 偏移量计算，用来简化后续过程；每一级由上一级实现和编译。
-* M0：宏汇编器，由 Hex2 实现和编译。cc_*：用汇编写的 C 子集编译器（支持 x86、x644、ARMv7 和 v8）；由 M0 编译。M2-Planet + mescc-tools：用先前的 C 子集制作的用于生成 Mes 的基础工具。Mes 部分Mes + MesCC → 一个修改过的 TCC → GCC 4.7 → 现代的 GCC
+    /*
+     *
+     * Stage0 部分
+     * Hex0：起点，Binary 不超过 1KB，用来从带注释的 hex dump 生成 binary。
+     * Hex1、Hex2：Hex0 + 偏移量计算，用来简化后续过程；每一级由上一级实现和编译。
+     * M0：宏汇编器，由 Hex2 实现和编译。cc_*：用汇编写的 C 子集编译器（支持 x86、x644、ARMv7 和 v8）；由 M0 编译。M2-Planet + mescc-tools：用先前的 C 子集制作的用于生成 Mes 的基础工具。Mes 部分Mes + MesCC → 一个修改过的 TCC → GCC 4.7 → 现代的 GCC
 
-* */
+     * */
+
     /**
      * @param cell excel格子对象
      * @return 读到的值
      */
-    public static Object getCellFormatValue(Cell cell){
+    public static Object getCellFormatValue(Cell cell) {
         Object cellValue = null;
         if (cell != null) {
             //判断cell类型
@@ -213,7 +211,7 @@ public class ExcelUtils {
         return cellValue;
     }
 
-    public static void outputExcelByWorkbook(XSSFWorkbook workbook,OutputStream outputStream){
+    public static void outputExcelByWorkbook(XSSFWorkbook workbook, OutputStream outputStream) {
         if (workbook != null && outputStream != null) {
             try {
                 workbook.write(outputStream);
@@ -230,7 +228,7 @@ public class ExcelUtils {
     /**
      * 读取Office 2007 excel
      */
-    private static List<List<Object>> read2007Excel(InputStream stream) throws IOException{
+    private static List<List<Object>> read2007Excel(InputStream stream) throws IOException {
         List<List<Object>> list = new LinkedList<List<Object>>();
         // 构造 XSSFWorkbook 对象，strPath 传入文件路径
         XSSFWorkbook xwb = new XSSFWorkbook(stream);
@@ -265,7 +263,6 @@ public class ExcelUtils {
         }
         return list;
     }
-
 
 
 }

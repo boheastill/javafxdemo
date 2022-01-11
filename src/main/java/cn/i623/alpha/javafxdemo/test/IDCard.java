@@ -138,10 +138,10 @@ public class IDCard {
                     }
                 }
 
-            } else if (num == -2){
+            } else if (num == -2) {
 
             }
-                return this;
+            return this;
         }
 
     }
